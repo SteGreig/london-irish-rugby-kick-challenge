@@ -1,0 +1,1141 @@
+
+@import '_partials/_media-queries.scss';
+@import '_partials/_flexbox.scss';
+
+
+$powerdayBlue: #19274f;
+$powerdayLightBlue: #7bcbe0;
+
+/*------------------------------------------------
+	GENERALS / DEFAULTS
+-------------------------------------------------*/
+
+.rugby-page-wrap *, .rugby-page-wrap *:after, .rugby-page-wrap *:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	min-height: 100vh;
+	font-family: Source Sans Pro, sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+	background: rgba(#276d49,.9);
+
+	@include bp1000 {
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: url(../images/london-irish-badge.svg) -20% -100px no-repeat,
+						url(../images/london-irish-badge.svg) 120% -100px no-repeat;
+			background-size: 50% 130%;
+			z-index: -1;
+			opacity: .035;
+		}
+	}
+}
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 15px;
+
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+
+img {
+	max-width: 100%;
+}
+
+button {
+	-webkit-appearance: none;
+	padding: 12px 20px;
+	color: #fff;
+	background-color: $powerdayBlue;
+	border: none;
+	text-transform: uppercase;
+	font-size: 1.05rem;
+	font-weight: 600;
+	letter-spacing: .04em;
+	cursor: pointer;
+	transition: .3s background-color;
+
+	&:hover {
+		background-color: lighten($powerdayBlue, 3%);
+	}
+
+	&:active,
+	&:focus {
+		outline: none;
+	}
+}
+
+
+
+/*------------------------------------------------
+	INTRO SCREEN
+-------------------------------------------------*/
+
+.intro-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(darken($powerdayBlue,8%),.95);
+	opacity: 0;
+	visibility: hidden;
+	z-index: 50;
+	@include flexbox;
+	@include align-items(center);
+	@include justify-content(center);
+	@include flex-direction(column);
+	padding: 15px;
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	button {
+		background-color: $powerdayLightBlue;
+		color: $powerdayBlue;
+		padding: 18px 40px;
+		font-size: 1.2rem;
+		cursor: pointer;
+
+		&:hover {
+			background-color: darken($powerdayLightBlue,5%);
+		}
+	}
+}
+
+.intro-copy {
+	max-width: 750px;
+	color: #fff;
+	text-align: center;
+	padding: 0 15px;
+	font-size: .95rem;
+	line-height: 1.5;
+	margin-bottom: 50px;
+
+	@include bp600 {
+		font-size: 1.1rem;
+	}
+
+	a {
+		color: $powerdayLightBlue;
+	}
+}
+
+.intro-controls {
+	width: 100%;
+	@include flexbox;
+	@include align-items(center);
+	@include justify-content(center);
+	@include flex-direction(column);
+	margin-top: 7vh;
+}
+
+.game-logo {
+	display: block;
+
+	@media screen and (max-height: 650px) {
+		width: 600px;
+	}
+
+	@media screen and (max-height: 600px) {
+		width: 500px;
+	}
+}
+
+.just-play {
+	padding: 15px;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	margin-top: 10px;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
+
+/*------------------------------------------------
+	PLAYER SELECT
+-------------------------------------------------*/
+
+.player-select {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	background-color: rgba(darken($powerdayBlue,8%),.95);
+	z-index: 50;
+	display: none;
+	padding-bottom: 50px;
+
+	&.active {
+		display: block;
+	}
+
+	.container {
+		max-width: 1150px;
+	}
+
+	h2 {
+		color: #fff;
+		width: 100%;
+		text-align: center;
+		padding: 20px 0;
+		text-transform: uppercase;
+
+		@include bp600 {
+			padding: 40px 0;
+		}
+
+		@include bp1000 {
+			font-size: 2.3rem;
+		}
+	}
+}
+
+.player-grid {
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	@include flexbox;
+	@include flex-wrap(wrap);
+	@include justify-content(center);
+
+	li {
+		float: left;
+		width: 48%;
+		margin-left: 2%;
+		margin-bottom: 2%;
+		list-style: none;
+		cursor: pointer;
+		transition: .3s;
+		position: relative;
+		border-radius: 5px;
+
+		&:hover {
+			transform: scale(1.03);
+		}
+
+		&:hover img {
+			box-shadow: 0 0 30px rgba(green,.7);
+		}
+
+		&.active {
+			transform: scale(1.1);
+		}
+
+		@include bp375 {
+			width: 31.333%;
+		}
+
+		@include bp600 {
+			width: 23%;
+		}
+
+		@include bp1000 {
+			width: 18%;
+		}
+	}
+
+	img {
+		display: block;
+		box-shadow: 5px 5px 30px rgba(#000,.7);
+		border-radius: 5px;
+		transition: .3s;
+	}
+
+	.selected {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+		background-color: rgba($powerdayLightBlue,.8);
+		border-radius: 5px;
+		display: none;
+		text-align: center;
+		@include flex-wrap(wrap);
+		@include align-items(center);
+		@include align-content(center);
+		@include justify-content(center);
+
+		p {
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: .03em;
+			font-weight: 600;
+			font-style: italic;
+			font-size: 1.2rem;
+			text-shadow: 2px 2px 0 rgba(#000,.2);
+			margin-bottom: 15px;
+
+			@include bp600 {
+				font-size: 1.5rem;
+			}
+
+			@include bp800 {
+				font-size: 1.8rem;
+			}
+		}
+	}
+
+	li.active .selected {
+		display: block;
+		@include flexbox;
+	}
+}
+
+
+
+/*------------------------------------------------
+	GAME SCENE
+-------------------------------------------------*/
+
+.game-screen-wrap {
+	@include flexbox;
+	@include align-items(center);
+	@include flex-direction(column);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.game-bounds {
+	@include flexbox;
+	@include justify-content(center);
+	@include align-items(flex-start);
+	overflow: hidden;
+	height: 400px;
+	max-height: 74.5%;
+	position: relative;
+	max-width: 1199px;
+
+	@media screen and (max-height: 650px) {
+		max-width: 850px;
+	}
+
+	@include bp600 {
+		height: 600px;
+	}
+
+	@include bp800 {
+		height: 700px;
+	}
+
+	@include bp1000 {
+		height: 800px;
+	}
+
+	@include bp1200 {
+		height: 900px;
+		box-shadow: 0 0 100px rgba(0,0,0,.3)
+	}
+}
+
+.stadium-scene-img {
+	display: block;
+	height: 100%;
+	max-width: 1199px;
+
+	@media screen and (max-height: 740px) {
+		max-width: 850px;
+	}
+}
+
+/* Skips */
+.skip {
+	position: absolute;
+	z-index: 15;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+
+	&:after {
+		content: "";
+		position: absolute;
+		bottom: 4px;
+		left: -4%;
+		width: 108%;
+		height: 5px;
+		box-shadow: 0 8px 8px rgba(#000,.25);
+		z-index: -1;
+		border-radius: 50%;
+		opacity: .5;
+	}
+
+	img {
+		display: block;
+		max-height: 100%;
+	}
+}
+
+.skip-left {
+	top: 46%;
+	left: 30%;
+	width: 8%;
+}
+
+.skip-middle {
+	top: 38.5%;
+	left: 47.5%;
+	width: 5%;
+
+	&:after {
+		bottom: 4px;
+		box-shadow: 0 8px 4px rgba(#000,.2);
+		width: 98%;
+		left: 1%;
+		height: 4px;
+	}
+}
+
+.skip-right {
+	top: 46%;
+	right: 30%;
+	width: 8%;
+}
+
+
+/* Rugby player */
+.player {
+	position: absolute;
+	bottom: 0;
+	left: 42%;
+	height: 25%;
+	z-index: 17;
+
+	.ins-active & {
+		z-index: 5;
+	}
+
+	@include bp1200 {
+		height: 32%;
+	}
+}
+
+.player-kicking {
+	display: none;
+}
+
+
+/* Ball and flight animations */
+.ball {
+	height: 6%;
+	margin: 0 auto;
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-100%) skew(0) rotateX(0deg) scale(1);
+	display: block;
+	z-index: 16;
+
+	.ins-active & {
+		z-index: 4;
+	}
+
+	&.successful-kick {
+		z-index: 4;
+	}
+
+	&.kicked {
+		transition: 1.4s;
+		top: 43%;
+	}
+
+	&.kicked-far-left {
+		animation: kick-far-left 1.7s forwards;
+		top: 50%;
+	}
+	&.kicked-left {
+		animation: kick-left 1.8s forwards;
+	}
+	&.kicked-middle {
+		animation: kick-mid 1.7s forwards;
+		top: 40%;
+	}
+	&.kicked-middle-success {
+		animation: kick-mid-success 1.7s forwards;
+		top: 35%;
+	}
+	&.kicked-right {
+		animation: kick-right 1.8s forwards;
+	}
+	&.kicked-far-right {
+		animation: kick-far-right 1.7s forwards;
+		top: 50%;
+	}
+}
+
+@keyframes kick-far-left {
+	30% {
+		transform: translateX(-50%) translateY(-450%) skew(10deg) rotateX(1260deg) scale(1);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(0) skew(10deg) rotateX(2000deg) scale(.5);
+		transition-timing-function: ease-in;
+	}
+}
+
+@keyframes kick-left {
+	30% {
+		transform: translateX(-50%) translateY(-550%) skew(5deg) rotateX(1260deg) scale(1.2);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(0) skew(5deg) rotateX(2360deg) scale(.4);
+		transition-timing-function: ease-in;
+	}
+}
+
+@keyframes kick-mid {
+	30% {
+		transform: translateX(-50%) translateY(-600%) skew(0) rotateX(1260deg) scale(1.2);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(0) skew(0) rotateX(2000deg) scale(.3);
+		transition-timing-function: ease-in;
+	}
+}
+
+@keyframes kick-mid-success {
+	30% {
+		transform: translateX(-50%) translateY(-700%) skew(0) rotateX(1260deg) scale(1.2);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(0) skew(0) rotateX(2000deg) scale(.3);
+		transition-timing-function: ease-in;
+		z-index: 4;
+	}
+}
+
+@keyframes kick-right {
+	30% {
+		transform: translateX(50%) translateY(-550%) skew(-5deg) rotateX(1260deg) scale(1.2);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(0) skew(-5deg) rotateX(2360deg) scale(.4);
+		transition-timing-function: ease-in;
+	}
+}
+
+@keyframes kick-far-right {
+	30% {
+		transform: translateX(-50%) translateY(-450%) skew(-10deg) rotateX(1260deg) scale(1);
+		transition-timing-function: cubic-bezier(0,0,.41,1.03);
+	}
+
+	100% {
+		transform: translateX(0%) translateY(0) skew(-10deg) rotateX(2000deg) scale(.5);
+		transition-timing-function: ease-in;
+	}
+}
+
+
+
+/*------------------------------------------------
+	GAME CONTROLS
+-------------------------------------------------*/
+
+.game-controls {
+	padding: 25px 0 10px;
+	height: 154px;
+	max-height: 21.5%;
+	overflow: hidden;
+	@include flexbox;
+	@include flex-direction(column);
+	@include align-items(center);
+}
+
+.direction-box {
+	width: 150px;
+	height: 30px;
+	background-color: $powerdayLightBlue;
+	position: relative;
+	border: none;
+	padding: 0;
+	max-height: 30%;
+}
+
+.direction-box-txt {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-transform: uppercase;
+	@include flexbox;
+	@include justify-content(center);
+	@include align-items(center);
+	opacity: .2;
+	font-size: .9rem;
+	font-weight: 600;
+	letter-spacing: .25em;
+}
+
+.direction-cursor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 2px;
+	background-color: #222;
+	animation: cursor alternate infinite .7s linear;
+
+	&.paused {
+		animation-play-state: paused;
+	}
+}
+
+@keyframes cursor {
+	0% {
+		left: 0;
+	}
+	100% {
+		left: 100%;
+	}
+}
+
+.kick-buttons {
+	position: relative;
+	width: 200px;
+	margin: 0 auto;
+	height: 65px;
+	max-height: 70%;
+	padding-top: 15px;
+}
+
+.kick-btn,
+.next-kick-btn {
+	height: 44px;
+	width: 100%;
+	position: absolute;
+	top: 15px;
+	left: 0;
+	height: calc(100% - 15px);
+
+	&[disabled] {
+		opacity: .3;
+	}
+
+	&:active,
+	&:focus {
+		outline: none;
+	}
+}
+
+.next-kick-btn {
+	font-size: .8rem;
+	@include flexbox;
+	@include align-items(center);
+	@include justify-content(center);
+	display: none;
+}
+
+
+
+/*------------------------------------------------
+	MISC GAME INFO
+-------------------------------------------------*/
+
+/* Attempts Left */
+.attempts {
+	position: absolute;
+	top: 7px;
+	left: 10px;
+	margin: 0;
+	padding: 0;
+	z-index: 20;
+
+	@include bp800 {
+		top: auto;
+		bottom: 7px;
+	}
+
+	li {
+		max-width: 10px;
+		transform: rotate(30deg);
+		float: left;
+		margin-right: 10px;
+		list-style: none;
+
+		@include bp800 {
+			max-width: 15px;
+		}
+	}
+}
+
+.score {
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	font-weight: 700;
+	color: #fff;
+	font-size: 1.6rem;
+	line-height: 1;
+	text-shadow: 0 0 10px rgba(0,0,0,.3);
+	padding: 7px;
+	border-radius: 15px;
+	background-color: #333;
+	width: 71px;
+	z-index: 15;
+
+	> span {
+		padding: 3px 5px 6px;
+		border-radius: 10px;
+		background-color: #555;
+		background-image: linear-gradient(0deg, #555 50%, lighten(#555,4%) 50%);
+		display: block;
+		text-align: center;
+		position: relative;
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			background-color: #222;
+			z-index: 10;
+			opacity: .5;
+		}
+	}
+
+	span span.change {
+		animation: .9s blink forwards;
+		display: block;
+	}
+
+	@include bp800 {
+		font-size: 2.5rem;
+		width: 94px;
+	}
+}
+
+@keyframes blink {
+	100% {
+		transform: rotateX(720deg);
+	}
+}
+
+/* Score Type Notice */
+.score-type {
+	padding: 5px 10px;
+	background-color: $powerdayLightBlue;
+	color: $powerdayBlue;
+	border-radius: 8px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-weight: 600;
+	font-size: .8rem;
+	display: none;
+
+	@include bp800 {
+		font-size: 1rem;
+	}
+}
+
+.successful-kick-10 .score-type {
+	background-color: gold;
+}
+
+.missed-kick .score-type {
+	background-color: orange;
+}
+
+/* Instructions Overlay */
+.instructions-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(#000,.82);
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s;
+
+	.ins-active & {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.ins {
+	color: #fff;
+	font-size: .8rem;
+	position: absolute;
+	left: 50%;
+
+	@include bp600 {
+		font-size: .9rem;
+	}
+
+	@include bp800 {
+		font-size: 1rem;
+	}
+}
+
+.ins-2 {
+	top: 17%;
+	transform: translateX(-50%);
+}
+
+.ins-10 {
+	top: 25%;
+	transform: translateX(-50%);
+	color: gold;
+}
+
+.ins-5 {
+	top: 54%;
+	transform: translateX(-50%);
+	color: $powerdayLightBlue;
+}
+
+.ins-attempts {
+	left: 10px;
+	top: 32px;
+	@include bp800 {
+		top: auto;
+		bottom: 50px;
+	}
+}
+
+.ins-score {
+	left: auto;
+	top: 60px;
+	right: 20px;
+	@include bp800 {
+		top: 75px;
+		right: 26px;
+	}
+}
+
+.ins-kick {
+	top: auto;
+	bottom: 20px;
+	transform: translateX(-50%);
+	text-align: center;
+	width: 180px;
+	line-height: 1.6;
+	@include bp600 {
+		width: 220px;
+	}
+}
+
+.ins-close,
+.ins-icon,
+.restart-icon {
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+	color: $powerdayBlue;
+	font-size: 1.3rem;
+	width: 34px;
+	height: 34px;
+	background-color: $powerdayLightBlue;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	cursor: pointer;
+	@include flexbox;
+	@include align-items(center);
+	@include justify-content(center);
+}
+
+/* Restart Icon */
+.restart-icon {
+	left: 12px;
+	bottom: 12px;
+
+	@include bp800 {
+		left: auto;
+		right: 56px;
+	}
+}
+
+
+
+/*------------------------------------------------
+	SCORE OVERLAY
+-------------------------------------------------*/
+
+.score-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(darken($powerdayBlue,8%),.93);
+	z-index: 999;
+	transition: .7s transform;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-100%);
+	color: #fff;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+
+	&::-webkit-scrollbar { 
+        display: none; 
+    }
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.scroll-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		overflow-y: scroll;
+		padding: 0 10px 70px;
+	}
+
+	.close {
+		position: fixed;
+		top: 10px;
+		right: 10px;
+		color: #fff;
+		font-size: 2.2rem;
+	}
+
+	.restart-game {
+		margin-top: 40px;
+		font-size: 1rem;
+		padding: 8px 17px;
+		background-color: $powerdayLightBlue;
+		color: $powerdayBlue;
+		display: inline-block;
+		font-weight: 600;
+		cursor: pointer;
+		@include flexbox-inline;
+		@include align-items(center);
+
+		&:hover {
+			background-color: lighten($powerdayLightBlue, 5%);
+		}
+
+		i {
+			font-size: 1.4rem;
+			margin-right: 10px;
+		}
+	}
+
+	h3 {
+		margin-top: 50px;
+		margin-bottom: 30px;
+		font-size: 1.5rem;
+		font-weight: 400;
+	}
+}
+
+.score-overlay-share-btns {
+	margin-top: 20px;
+
+	@include bp600 {
+		width: 400px;
+		margin: 40px auto 0;
+		@include flexbox;
+		@include justify-content(space-around);
+	}
+	.fb,
+	.tweet {
+		color: #fff;
+		display: inline-block;
+		text-decoration: none;
+		padding: 12px 16px 15px;
+		@include flexbox-inline;
+		@include align-items(center);
+		@include justify-content(center);
+		font-size: 1.1rem;
+		width: 190px;
+		cursor: pointer;
+		transition: .3s;
+
+		i {
+			font-size: 1.3rem;
+			margin-right: 9px;
+		}
+	}
+
+	.fb {
+		background-color: #3b5998;
+		margin-top: 5px;
+
+		&:hover {
+			background-color: darken(#3b5998, 4%);
+		}
+
+		@include bp600 {
+			margin-top: 0;
+		}
+	}
+
+	.tweet {
+		background-color: #0084b4;
+
+		&:hover {
+			background-color: darken(#0084b4, 4%);
+		}
+	}
+}
+
+.score-overlay-content {
+	width: 100%;
+	max-width: 500px;
+	margin: 50px auto;
+	text-align: center;
+}
+
+.final-score-txt {
+	font-size: 1.3rem;
+	line-height: .9;
+	border: 2px solid #fff;
+    padding: 20px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include align-content(center);
+    @include justify-content(center);
+    margin: auto;
+
+	strong {
+		display: block;
+		font-size: 6rem;
+		font-weight: 900;
+		margin-bottom: 5px;
+		width: 100%;
+	}
+}
+
+
+
+/*------------------------------------------------
+	FOOTER
+-------------------------------------------------*/
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 5px;
+	z-index: 50;
+	@include flexbox;
+	@include align-items(center);
+	width: 100%;
+	height: 35px;
+	background-color: #3c7b5a;
+
+	@include bp800 {
+		padding: 10px;
+		height: 45px;
+	}
+
+	img {
+		display: block;
+	}
+}
+
+.intro-screen.active ~ footer {
+	background-color: transparent;
+}
+
+.score-overlay.active + footer {
+	z-index: 999;
+}
+
+.london-irish-badge-footer {
+	display: inline-block;
+	margin-right: 15px;
+
+	img {
+		width: 20px;
+
+		@include bp800 {
+			width: 23px;
+		}
+	}
+}
+
+.powerday-logo-footer {
+	display: inline-block;
+	margin-right: auto;
+
+	img {
+		width: 90px;
+
+		@include bp800 {
+			width: 110px;
+		}
+	}
+}
+
+.adtrak {
+	opacity: .2;
+	transition: .3s;
+
+	&:hover {
+		opacity: .5;
+	}
+
+	img {
+		width: 60px;
+
+		@include bp800 {
+			width: 70px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
